@@ -78,34 +78,30 @@ describe Account do
 
   describe "#withdraw!" do
     context 'with sufficient balance' do
-      before do
-        @sufficient_account = Account.new('1111111111', 100)
-      end
+      let(:sufficient_account) { Account.new('1111111111', 100) }
 
       it 'adds a transaction' do
-        expect{@sufficient_account.withdraw!(-10)}.to change{@sufficient_account.transactions.length}.by(1)
+        expect{sufficient_account.withdraw!(-10)}.to change{sufficient_account.transactions.length}.by(1)
       end
 
       it 'does not raise an overdraft error' do
-        expect{@sufficient_account.withdraw!(-10)}.to_not raise_error()
+        expect{sufficient_account.withdraw!(-10)}.to_not raise_error()
       end
 
       it 'changes the balance by the withrawn amount' do
-        expect{@sufficient_account.withdraw!(-10)}.to change{@sufficient_account.balance}.by(-10)
+        expect{sufficient_account.withdraw!(-10)}.to change{sufficient_account.balance}.by(-10)
       end
 
       it 'changes a postive parameter to a negative withdrawal' do
-        expect{@sufficient_account.withdraw!(10)}.to change{@sufficient_account.balance}.by(-10)
+        expect{sufficient_account.withdraw!(10)}.to change{sufficient_account.balance}.by(-10)
       end
     end
 
     context 'with insufficient balance' do
-      before do
-        @insufficient_account = Account.new('1111111111', 0)
-      end
-
+      let(:insufficient_account) { Account.new('1111111111', 0) }
+  
       it 'does raise an overdraft error' do
-        expect{@insufficient_account.withdraw!(10)}.to raise_error(OverdraftError)
+        expect{insufficient_account.withdraw!(10)}.to raise_error(OverdraftError)
       end
     end
   end
