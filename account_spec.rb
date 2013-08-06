@@ -60,12 +60,19 @@ describe Account do
       expect{account.deposit!(-1)}.to raise_error(NegativeDepositError)
     end
 
+    it 'calls the add transaction methos' do
+      account.should receive(:add_transaction).with(10)
+      account.deposit!(10)
+    end
+
     it 'adds a transaction' do
       expect{account.deposit!(1)}.to change{account.transactions.length}.from(1).to(2)
     end
 
-    it 'change deposit balance' do
-      expect(account.deposit!(100)).to eq(100)
+    it 'calls balance method' do
+      account.stub(:balance).and_return(0)
+      account.should receive(:balance)
+      account.deposit!(10)
     end
   end
 
