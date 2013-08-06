@@ -10,10 +10,6 @@ The purpose of a good test suite is to ensure that the contract is honored.
 
 ## Objectives
 
-### Grab the files from the gist
-
-Download the `account.rb` and `account_spec.rb` files from [the gist](https://gist.github.com/dbc-challenges/6ee9524509555a3e4ba3).  Read through them until you understand the code.
-
 ### Identify the contract
 
 There are 6 public instance methods for the `Account` class:
